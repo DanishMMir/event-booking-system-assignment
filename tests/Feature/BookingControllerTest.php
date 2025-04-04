@@ -2,10 +2,10 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
-use App\Models\Event;
 use App\Models\Attendee;
+use App\Models\Event;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class BookingControllerTest extends TestCase
 {
@@ -18,7 +18,7 @@ class BookingControllerTest extends TestCase
 
         $response = $this->postJson('/api/bookings', [
             'event_id' => $event->id,
-            'attendee_id' => $attendee->id
+            'attendee_id' => $attendee->id,
         ]);
 
         $response->assertStatus(201)
@@ -27,8 +27,8 @@ class BookingControllerTest extends TestCase
                     'id',
                     'event',
                     'attendee',
-                    'status'
-                ]
+                    'status',
+                ],
             ]);
     }
 
@@ -41,18 +41,18 @@ class BookingControllerTest extends TestCase
         // First booking
         $this->postJson('/api/bookings', [
             'event_id' => $event->id,
-            'attendee_id' => $attendee1->id
+            'attendee_id' => $attendee1->id,
         ]);
 
         // Second booking should fail
         $response = $this->postJson('/api/bookings', [
             'event_id' => $event->id,
-            'attendee_id' => $attendee2->id
+            'attendee_id' => $attendee2->id,
         ]);
 
         $response->assertStatus(400)
             ->assertJson([
-                'message' => 'Event is fully booked'
+                'message' => 'Event is fully booked',
             ]);
     }
 }

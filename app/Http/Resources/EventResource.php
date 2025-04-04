@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources;
 
-use App\Exceptions\EventException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -12,6 +11,7 @@ class EventResource extends JsonResource
      * @var bool
      */
     public static $wrap = 'data';
+
     public function toArray(Request $request): array
     {
         return [

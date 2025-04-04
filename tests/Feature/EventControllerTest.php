@@ -3,9 +3,9 @@
 namespace Tests\Feature;
 
 use App\Models\Booking;
-use Tests\TestCase;
 use App\Models\Event;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class EventControllerTest extends TestCase
 {
@@ -29,9 +29,9 @@ class EventControllerTest extends TestCase
                         'start_date',
                         'end_date',
                         'capacity',
-                        'available_spots'
-                    ]
-                ]
+                        'available_spots',
+                    ],
+                ],
             ]);
     }
 
@@ -43,7 +43,7 @@ class EventControllerTest extends TestCase
             'country' => 'Test Country',
             'start_date' => now()->addDays(1)->toDateTimeString(),
             'end_date' => now()->addDays(2)->toDateTimeString(),
-            'capacity' => 100
+            'capacity' => 100,
         ];
 
         $response = $this->postJson('/api/events', $eventData);
@@ -57,8 +57,8 @@ class EventControllerTest extends TestCase
                     'country',
                     'start_date',
                     'end_date',
-                    'capacity'
-                ]
+                    'capacity',
+                ],
             ]);
     }
 
@@ -72,7 +72,7 @@ class EventControllerTest extends TestCase
             'country' => 'Updated Country',
             'start_date' => now()->addDays(2)->toDateTimeString(),
             'end_date' => now()->addDays(3)->toDateTimeString(),
-            'capacity' => 200
+            'capacity' => 200,
         ];
 
         $response = $this->putJson("/api/events/{$event->id}", $updateData);
@@ -82,30 +82,30 @@ class EventControllerTest extends TestCase
                 'data' => [
                     'name' => 'Updated Event Name',
                     'country' => 'Updated Country',
-                    'capacity' => 200
-                ]
+                    'capacity' => 200,
+                ],
             ]);
     }
 
     public function test_cannot_update_event_capacity_below_bookings(): void
     {
         $event = Event::factory()->create([
-            'capacity' => 10
+            'capacity' => 10,
         ]);
 
         // Create some bookings
         Booking::factory()->count(5)->create([
-            'event_id' => $event->id
+            'event_id' => $event->id,
         ]);
 
         $response = $this->putJson("/api/events/{$event->id}", [
-            'capacity' => 3
+            'capacity' => 3,
         ]);
 
         $response->assertStatus(400)
             ->assertJson([
                 'status' => 'error',
-                'message' => 'New capacity cannot be less than current bookings'
+                'message' => 'New capacity cannot be less than current bookings',
             ]);
     }
 
@@ -118,7 +118,7 @@ class EventControllerTest extends TestCase
         $response->assertStatus(200)
             ->assertJson([
                 'status' => 'success',
-                'message' => 'Event deleted successfully'
+                'message' => 'Event deleted successfully',
             ]);
 
         $this->assertDatabaseMissing('events', ['id' => $event->id]);
@@ -130,7 +130,7 @@ class EventControllerTest extends TestCase
 
         // Create a booking for this event
         Booking::factory()->create([
-            'event_id' => $event->id
+            'event_id' => $event->id,
         ]);
 
         $response = $this->deleteJson("/api/events/{$event->id}");
@@ -138,7 +138,7 @@ class EventControllerTest extends TestCase
         $response->assertStatus(400)
             ->assertJson([
                 'status' => 'error',
-                'message' => 'Cannot delete event with existing bookings'
+                'message' => 'Cannot delete event with existing bookings',
             ]);
 
         $this->assertDatabaseHas('events', ['id' => $event->id]);

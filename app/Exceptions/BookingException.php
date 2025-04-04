@@ -2,7 +2,4 @@
 
 namespace App\Exceptions;
 
-class BookingException extends \Exception
-{
-
-}
+class BookingException extends \Exception {}

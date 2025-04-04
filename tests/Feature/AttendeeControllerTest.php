@@ -1,10 +1,9 @@
 <?php
 
-
-use Tests\TestCase;
-use App\Models\Event;
 use App\Models\Attendee;
+use App\Models\Event;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class AttendeeControllerTest extends TestCase
 {
@@ -26,9 +25,9 @@ class AttendeeControllerTest extends TestCase
                         'email',
                         'phone',
                         'created_at',
-                        'updated_at'
-                    ]
-                ]
+                        'updated_at',
+                    ],
+                ],
             ]);
     }
 
@@ -44,8 +43,8 @@ class AttendeeControllerTest extends TestCase
                     'id' => $attendee->id,
                     'name' => $attendee->name,
                     'email' => $attendee->email,
-                    'phone' => $attendee->phone
-                ]
+                    'phone' => $attendee->phone,
+                ],
             ]);
     }
 
@@ -56,7 +55,7 @@ class AttendeeControllerTest extends TestCase
         $response->assertStatus(404)
             ->assertJson([
                 'status' => 'error',
-                'message' => 'Resource not found'
+                'message' => 'Resource not found',
             ]);
     }
 
@@ -71,8 +70,8 @@ class AttendeeControllerTest extends TestCase
                 'data' => [
                     'name' => 'John Doe',
                     'email' => 'john@example.com',
-                    'phone' => '1234567890'
-                ]
+                    'phone' => '1234567890',
+                ],
             ]);
 
         $this->assertDatabaseHas('attendees', $attendee);
@@ -85,7 +84,7 @@ class AttendeeControllerTest extends TestCase
         $attendeeData = [
             'name' => 'John Doe',
             'email' => 'john@example.com',
-            'phone' => '1234567890'
+            'phone' => '1234567890',
         ];
 
         $response = $this->postJson('/api/attendees', $attendeeData);
@@ -100,7 +99,7 @@ class AttendeeControllerTest extends TestCase
 
         $updateData = [
             'name' => 'Updated Name',
-            'phone' => '0987654321'
+            'phone' => '0987654321',
         ];
 
         $response = $this->putJson("/api/attendees/{$attendee->id}", $updateData);
@@ -111,14 +110,14 @@ class AttendeeControllerTest extends TestCase
                     'id' => $attendee->id,
                     'name' => 'Updated Name',
                     'phone' => '0987654321',
-                    'email' => $attendee->email
-                ]
+                    'email' => $attendee->email,
+                ],
             ]);
 
         $this->assertDatabaseHas('attendees', [
             'id' => $attendee->id,
             'name' => 'Updated Name',
-            'phone' => '0987654321'
+            'phone' => '0987654321',
         ]);
     }
 
@@ -131,7 +130,7 @@ class AttendeeControllerTest extends TestCase
         $response->assertStatus(200)
             ->assertJson([
                 'status' => 'success',
-                'message' => 'Attendee deleted successfully'
+                'message' => 'Attendee deleted successfully',
             ]);
 
         $this->assertDatabaseMissing('attendees', ['id' => $attendee->id]);
@@ -146,7 +145,7 @@ class AttendeeControllerTest extends TestCase
         Booking::create([
             'event_id' => $event->id,
             'attendee_id' => $attendee->id,
-            'status' => 'confirmed'
+            'status' => 'confirmed',
         ]);
 
         $response = $this->deleteJson("/api/attendees/{$attendee->id}");
@@ -154,7 +153,7 @@ class AttendeeControllerTest extends TestCase
         $response->assertStatus(400)
             ->assertJson([
                 'status' => 'error',
-                'message' => 'Cannot delete attendee with active bookings'
+                'message' => 'Cannot delete attendee with active bookings',
             ]);
 
         $this->assertDatabaseHas('attendees', ['id' => $attendee->id]);
@@ -172,9 +171,9 @@ class AttendeeControllerTest extends TestCase
             ->assertJson([
                 'data' => [
                     [
-                        'email' => 'test@example.com'
-                    ]
-                ]
+                        'email' => 'test@example.com',
+                    ],
+                ],
             ]);
     }
 }

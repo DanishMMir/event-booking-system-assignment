@@ -11,6 +11,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
  *     version="1.0.0",
  *     title="Event Booking System API Documentation",
  *     description="API documentation for Event Booking System",
+ *
  *     @OA\Contact(
  *         email="mirdanishmajeed@gmail.com"
  *     )
@@ -23,5 +24,5 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
  */
 abstract class Controller
 {
-    use AuthorizesRequests, ValidatesRequests, ApiResponse;
+    use ApiResponse, AuthorizesRequests, ValidatesRequests;
 }

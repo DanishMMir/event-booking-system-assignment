@@ -2,14 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * @OA\Schema(
  *     schema="Attendee",
  *     required={"name", "email", "phone"},
+ *
  *     @OA\Property(property="id", type="integer"),
  *     @OA\Property(property="name", type="string"),
  *     @OA\Property(property="email", type="string"),
@@ -25,7 +26,7 @@ class Attendee extends Model
     protected $fillable = [
         'name',
         'email',
-        'phone'
+        'phone',
     ];
 
     public function bookings(): HasMany
@@ -33,4 +34,3 @@ class Attendee extends Model
         return $this->hasMany(Booking::class);
     }
 }
-

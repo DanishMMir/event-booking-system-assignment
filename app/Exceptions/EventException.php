@@ -2,7 +2,4 @@
 
 namespace App\Exceptions;
 
-class EventException extends \Exception
-{
-
-}
+class EventException extends \Exception {}

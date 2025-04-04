@@ -2,9 +2,9 @@
 
 namespace App\Services;
 
-use App\Models\Event;
-use App\Models\Booking;
 use App\Exceptions\BookingException;
+use App\Models\Booking;
+use App\Models\Event;
 
 class BookingService
 {

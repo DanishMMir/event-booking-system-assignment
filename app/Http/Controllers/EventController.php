@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\EventException;
-use App\Http\Requests\Event\UpdateEventRequest;
-use App\Models\Event;
-use App\Http\Resources\EventResource;
 use App\Http\Requests\Event\StoreEventRequest;
+use App\Http\Requests\Event\UpdateEventRequest;
+use App\Http\Resources\EventResource;
+use App\Models\Event;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
@@ -23,18 +23,23 @@ class EventController extends Controller
      *     path="/events",
      *     summary="List all events",
      *     tags={"Events"},
+     *
      *     @OA\Parameter(
      *         name="country",
      *         in="query",
      *         description="Filter events by country",
      *         required=false,
+     *
      *         @OA\Schema(type="string")
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
+     *
      *         @OA\JsonContent(
      *             type="object",
+     *
      *             @OA\Property(property="data", type="array", @OA\Items(
      *                 @OA\Property(property="id", type="integer"),
      *                 @OA\Property(property="name", type="string"),
@@ -52,7 +57,7 @@ class EventController extends Controller
     public function index(): AnonymousResourceCollection
     {
         $events = Event::query()
-            ->when(request('country'), fn($query) => $query->where('country', request('country')))
+            ->when(request('country'), fn ($query) => $query->where('country', request('country')))
             ->paginate(10);
 
         return EventResource::collection($events);
@@ -63,10 +68,13 @@ class EventController extends Controller
      *     path="/events",
      *     summary="Create a new event",
      *     tags={"Events"},
+     *
      *     @OA\RequestBody(
      *         required=true,
+     *
      *         @OA\JsonContent(
      *             required={"name","description","country","start_date","end_date","capacity"},
+     *
      *             @OA\Property(property="name", type="string"),
      *             @OA\Property(property="description", type="string"),
      *             @OA\Property(property="country", type="string"),
@@ -75,11 +83,14 @@ class EventController extends Controller
      *             @OA\Property(property="capacity", type="integer")
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=201,
      *         description="Event created successfully",
+     *
      *         @OA\JsonContent(ref="#/components/schemas/Event")
      *     ),
+     *
      *     @OA\Response(
      *         response=422,
      *         description="Validation error"
@@ -89,6 +100,7 @@ class EventController extends Controller
     public function store(StoreEventRequest $request): EventResource
     {
         $event = Event::create($request->validated());
+
         return new EventResource($event);
     }
 
@@ -97,15 +109,20 @@ class EventController extends Controller
      *     path="/events/{event}",
      *     summary="Update an event",
      *     tags={"Events"},
+     *
      *     @OA\Parameter(
      *         name="event",
      *         in="path",
      *         required=true,
+     *
      *         @OA\Schema(type="integer")
      *     ),
+     *
      *     @OA\RequestBody(
      *         required=true,
+     *
      *         @OA\JsonContent(
+     *
      *             @OA\Property(property="name", type="string"),
      *             @OA\Property(property="description", type="string"),
      *             @OA\Property(property="country", type="string"),
@@ -114,11 +131,14 @@ class EventController extends Controller
      *             @OA\Property(property="capacity", type="integer")
      *         )
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Event updated successfully",
+     *
      *         @OA\JsonContent(ref="#/components/schemas/Event")
      *     ),
+     *
      *     @OA\Response(
      *         response=404,
      *         description="Event not found"
@@ -149,12 +169,15 @@ class EventController extends Controller
      *     path="/events/{event}",
      *     summary="Delete an event",
      *     tags={"Events"},
+     *
      *     @OA\Parameter(
      *         name="event",
      *         in="path",
      *         required=true,
+     *
      *         @OA\Schema(type="integer")
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Event deleted successfully"
@@ -180,7 +203,7 @@ class EventController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Event deleted successfully'
+            'message' => 'Event deleted successfully',
         ]);
     }
 
@@ -189,17 +212,22 @@ class EventController extends Controller
      *     path="/events/{event}",
      *     summary="Show an event details",
      *     tags={"Events"},
+     *
      *     @OA\Parameter(
      *         name="event",
      *         in="path",
      *         required=true,
+     *
      *         @OA\Schema(type="integer")
      *     ),
+     *
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
+     *
      *         @OA\JsonContent(
      *             type="object",
+     *
      *             @OA\Property(property="data", type="array", @OA\Items(
      *                 @OA\Property(property="id", type="integer"),
      *                 @OA\Property(property="name", type="string"),

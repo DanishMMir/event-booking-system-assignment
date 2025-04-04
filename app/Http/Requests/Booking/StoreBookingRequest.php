@@ -15,7 +15,7 @@ class StoreBookingRequest extends FormRequest
     {
         return [
             'event_id' => 'required|exists:events,id',
-            'attendee_id' => 'required|exists:attendees,id'
+            'attendee_id' => 'required|exists:attendees,id',
         ];
     }
 }

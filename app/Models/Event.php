@@ -2,14 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * @OA\Schema(
  *     schema="Event",
  *     required={"name", "description", "country", "start_date", "end_date", "capacity"},
+ *
  *     @OA\Property(property="id", type="integer"),
  *     @OA\Property(property="name", type="string"),
  *     @OA\Property(property="description", type="string"),
@@ -31,13 +32,13 @@ class Event extends Model
         'country',
         'start_date',
         'end_date',
-        'capacity'
+        'capacity',
     ];
 
     protected $casts = [
         'start_date' => 'datetime',
         'end_date' => 'datetime',
-        'capacity' => 'integer'
+        'capacity' => 'integer',
     ];
 
     public function bookings(): HasMany

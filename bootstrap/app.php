@@ -3,7 +3,6 @@
 use App\Exceptions\AttendeeException;
 use App\Exceptions\BookingException;
 use App\Exceptions\EventException;
-use App\Exceptions\Handler;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -27,13 +26,13 @@ return Application::configure(basePath: dirname(__DIR__))
                 if ($e instanceof ModelNotFoundException) {
                     return response()->json([
                         'status' => 'error',
-                        'message' => 'Resource not found'
+                        'message' => 'Resource not found',
                     ], 404);
                 }
                 if ($e instanceof NotFoundHttpException) {
                     return response()->json([
                         'status' => 'error',
-                        'message' => 'Resource not found'
+                        'message' => 'Resource not found',
                     ], 404);
                 }
                 if ($e instanceof ValidationException) {

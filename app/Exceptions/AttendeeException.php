@@ -2,7 +2,4 @@
 
 namespace App\Exceptions;
 
-class AttendeeException extends \Exception
-{
-
-}
+class AttendeeException extends \Exception {}

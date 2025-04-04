@@ -2,14 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * @OA\Schema(
  *     schema="Booking",
  *     required={"event_id", "attendee_id", "status"},
+ *
  *     @OA\Property(property="id", type="integer"),
  *     @OA\Property(property="event_id", type="integer"),
  *     @OA\Property(property="attendee_id", type="integer"),
@@ -25,7 +26,7 @@ class Booking extends Model
     protected $fillable = [
         'event_id',
         'attendee_id',
-        'status'
+        'status',
     ];
 
     public function event(): BelongsTo

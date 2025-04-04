@@ -19,7 +19,7 @@ class StoreEventRequest extends FormRequest
             'country' => 'required|string|max:255',
             'start_date' => 'required|date|after:now',
             'end_date' => 'required|date|after:start_date',
-            'capacity' => 'required|integer|min:1'
+            'capacity' => 'required|integer|min:1',
         ];
     }
 }

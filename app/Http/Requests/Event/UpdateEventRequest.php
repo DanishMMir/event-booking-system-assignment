@@ -19,7 +19,7 @@ class UpdateEventRequest extends FormRequest
             'country' => 'sometimes|required|string|max:255',
             'start_date' => 'sometimes|required|date|after:now',
             'end_date' => 'sometimes|required|date|after:start_date',
-            'capacity' => 'sometimes|required|integer|min:1'
+            'capacity' => 'sometimes|required|integer|min:1',
         ];
     }
 }
