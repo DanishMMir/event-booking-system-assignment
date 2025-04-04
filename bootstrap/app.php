@@ -1,5 +1,6 @@
 <?php
 
+use App\Exceptions\AttendeeException;
 use App\Exceptions\BookingException;
 use App\Exceptions\EventException;
 use App\Exceptions\Handler;
@@ -51,6 +52,13 @@ return Application::configure(basePath: dirname(__DIR__))
                 }
 
                 if ($e instanceof EventException) {
+                    return response()->json([
+                        'status' => 'error',
+                        'message' => $e->getMessage(),
+                    ], $e->getCode());
+                }
+
+                if ($e instanceof AttendeeException) {
                     return response()->json([
                         'status' => 'error',
                         'message' => $e->getMessage(),

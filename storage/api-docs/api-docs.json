@@ -15,6 +15,245 @@
         }
     ],
     "paths": {
+        "/attendees": {
+            "get": {
+                "tags": [
+                    "Attendees"
+                ],
+                "summary": "List all attendees",
+                "operationId": "44fffd804f376b9b11baad19845b7462",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "Filter attendees by email",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer"
+                                                    },
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "email": {
+                                                        "type": "string"
+                                                    },
+                                                    "phone": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Attendees"
+                ],
+                "summary": "Create a new attendee",
+                "operationId": "ce404f7999c618a563bd5e86c270cad9",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "phone"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "phone": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Attendee created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Attendee"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                }
+            }
+        },
+        "/attendees/{attendee}": {
+            "get": {
+                "tags": [
+                    "Attendees"
+                ],
+                "summary": "Show an attendee details",
+                "operationId": "2003abc622a817d077146899fb16c6e3",
+                "parameters": [
+                    {
+                        "name": "attendee",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer"
+                                                    },
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "email": {
+                                                        "type": "string"
+                                                    },
+                                                    "phone": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Attendees"
+                ],
+                "summary": "Update an attendee",
+                "operationId": "347e4204e410f56af6c176dac73bbc08",
+                "parameters": [
+                    {
+                        "name": "attendee",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "phone": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Attendee updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Attendee"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Attendee not found"
+                    },
+                    "400": {
+                        "description": "Invalid operation"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Attendees"
+                ],
+                "summary": "Delete an attendee",
+                "operationId": "e850bd768b1190bdfe61da247104343a",
+                "parameters": [
+                    {
+                        "name": "attendee",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Attendee deleted successfully"
+                    },
+                    "404": {
+                        "description": "Attendee not found"
+                    },
+                    "400": {
+                        "description": "Cannot delete attendee with active bookings"
+                    }
+                }
+            }
+        },
         "/events": {
             "get": {
                 "tags": [
@@ -310,6 +549,36 @@
     },
     "components": {
         "schemas": {
+            "Attendee": {
+                "required": [
+                    "name",
+                    "email",
+                    "phone"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "phone": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            },
             "Event": {
                 "required": [
                     "name",
@@ -357,6 +626,10 @@
         }
     },
     "tags": [
+        {
+            "name": "Attendees",
+            "description": "API Endpoints for Attendees"
+        },
         {
             "name": "Events",
             "description": "API Endpoints for Events"
