@@ -1,66 +1,78 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## About Assignment
 
-## About Laravel
+The assignment was pretty straight forward. It was easy to implement and work on. Following are the key aspects you should consider while evaluating the assignment
+- No frontend UI created.
+- Functionality can be accessed as API endpoints.
+- All core functions defined in assignment have been completed.
+- No auth has been implemented (as advised in assignment). However can be easily implemented using Sanctum (Details further down).
+- Only `list` and `store` functions defined for bookings (any other functions were not mentioned in the assignment).
+- Events and Attendees have all functions implemented.
+- Developed as dockerized containers.
+- API Documentation published using Swagger.
+- Pagination and filtering implemented for listing endpoints.
+- Tests included for almost all the functions / features.
+- Postman Collection included
+- Data validation, serialization, normalization, concern separation taken care of.
+- Laravel Pint used as a tool for maintaining code standards by fixing styles.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Environment
+- Docker Desktop with WSL2 integration
+- Docker Compose
+- PHP 8.2
+- Laravel 12
+- Mysql 8
+- Nginx
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Libraries
+- `laravel/sanctum` for managing auth. (auth not implemented).
+- `darkaonline/l5-swagger` for generating Swagger documentation.
+- `laravel/pint` for managing coding styles.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## How to use
+- pull main branch from GitHub (preferably inside WSL2)
+- `cd` into root of the project
+- pull and start docker containers using `docker-compose up -d`
+- install dependencies by running `docker-compose run  --rm composer install`
+- copy example env to env `docker-compose run  --rm server cp .env.example .env`
+- generate app key `docker-compose run  --rm php artisan key:generate`
+- connect your favourite MySQL tool (MySQL workbench) to the `mysql` docker container using below-mentioned credentials.
+- create a database named `laravel_project` inside the `mysql` conatiner by connecting to it by following the above step.
+- Add your DB creds to .env
+```
+    DB_CONNECTION=mysql
+    DB_HOST=mysql
+    DB_PORT=3306
+    DB_DATABASE=laravel_project
+    DB_USERNAME=homestead
+    DB_PASSWORD=secret
+```
+- run migrations `php artisan migrate`
+- The app should be live on `localhost:8080` now.
+- Import the postman collection and environment provided in your postman.
+- You should now be able to hit the endpoints using postman.
+- Check Swagger documentation for the app on route http://localhost:8080/api/documentation
 
-## Learning Laravel
+## What has been done
+- Created database schemas necessary for the functionality.
+- Implemented domain logic as per assignment to make the system work.
+- Added proper API endpoints to be used for interacting with the system.
+- Added test cases to cover functionality ad improve reliability.
+- Added Postman Collection for easier access.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Main Functionality
+- Bring up the docker containers `docker-compose up -d`
+- Head over to browser and hit http://localhost:8080/api/documentation
+- Here you will find the documentation for all the endpoints of the application.
+- Import the postman collection and environment in you postman application.
+- This will enable you to test the endpoints of the application and tinker with different functionalities.
+- You can also execute test suite by running `docker-compose run  --rm artisan test` command inside the project root.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Improvements that can be made
+- Auth can be implemented
+- many more
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## What has not been done / was unclear
+- Auth Implementation has not been done as was mentioned in the assignment.
+- Schemas have been kept simple on purpose due to time constriant.
+- Not all endpoints have been implemented for bookings. Only `list` and `store` endpoints implemented.
