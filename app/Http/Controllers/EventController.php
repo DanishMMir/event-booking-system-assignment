@@ -156,7 +156,7 @@ class EventController extends Controller
             isset($request->validated()['capacity']) &&
             $request->validated()['capacity'] < $event->bookings()->count()
         ) {
-            throw new EventException('New capacity cannot be less than current bookings');
+            throw new EventException('New capacity cannot be less than current bookings', 400);
         }
 
         $event->update($request->validated());
@@ -196,7 +196,7 @@ class EventController extends Controller
     {
         // Check if event has any bookings
         if ($event->bookings()->exists()) {
-            throw new EventException('Cannot delete event with existing bookings');
+            throw new EventException('Cannot delete event with existing bookings', 400);
         }
 
         $event->delete();

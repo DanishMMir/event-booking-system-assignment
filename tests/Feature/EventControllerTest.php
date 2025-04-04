@@ -35,6 +35,40 @@ class EventControllerTest extends TestCase
             ]);
     }
 
+    public function test_can_show_single_event(): void
+    {
+        $event = Event::factory()->create();
+
+        $response = $this->getJson("/api/events/{$event->id}");
+
+        $response->assertStatus(200)
+            ->assertJsonStructure([
+                'data' => [
+                    'id',
+                    'name',
+                    'description',
+                    'country',
+                    'start_date',
+                    'end_date',
+                    'capacity',
+                    'available_spots',
+                    'created_at',
+                    'updated_at',
+                ],
+            ]);
+    }
+
+    public function test_show_returns_404_for_non_existent_event(): void
+    {
+        $response = $this->getJson('/api/events/999');
+
+        $response->assertStatus(404)
+            ->assertJson([
+                'status' => 'error',
+                'message' => 'Resource not found',
+            ]);
+    }
+
     public function test_can_create_event(): void
     {
         $eventData = [
@@ -142,5 +176,23 @@ class EventControllerTest extends TestCase
             ]);
 
         $this->assertDatabaseHas('events', ['id' => $event->id]);
+    }
+
+    public function test_can_search_events_by_country(): void
+    {
+        Event::factory()->create(['country' => 'India']);
+        Event::factory()->create(['country' => 'United Kingdom']);
+
+        $response = $this->getJson('/api/events?country=India');
+
+        $response->assertStatus(200)
+            ->assertJsonCount(1, 'data')
+            ->assertJson([
+                'data' => [
+                    [
+                        'country' => 'India',
+                    ],
+                ],
+            ]);
     }
 }

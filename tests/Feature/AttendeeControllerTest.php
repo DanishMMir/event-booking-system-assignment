@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Attendee;
+use App\Models\Booking;
 use App\Models\Event;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -61,9 +62,13 @@ class AttendeeControllerTest extends TestCase
 
     public function test_can_create_attendee(): void
     {
-        $attendee = Attendee::factory()->create();
+        $attendeeData = [
+            'name' => 'John Doe',
+            'email' => 'john@example.com',
+            'phone' => '1234567890',
+        ];
 
-        $response = $this->postJson('/api/attendees', $attendee);
+        $response = $this->postJson('/api/attendees', $attendeeData);
 
         $response->assertStatus(201)
             ->assertJson([
@@ -74,7 +79,7 @@ class AttendeeControllerTest extends TestCase
                 ],
             ]);
 
-        $this->assertDatabaseHas('attendees', $attendee);
+        $this->assertDatabaseHas('attendees', $attendeeData);
     }
 
     public function test_cannot_create_attendee_with_duplicate_email(): void

@@ -214,7 +214,7 @@ class AttendeeController extends Controller
     {
         // Check if attendee has any active bookings
         if ($attendee->bookings()->where('status', 'confirmed')->exists()) {
-            throw new AttendeeException('Cannot delete attendee with active bookings');
+            throw new AttendeeException('Cannot delete attendee with active bookings', 400);
         }
 
         $attendee->delete();

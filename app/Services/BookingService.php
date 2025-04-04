@@ -12,6 +12,10 @@ class BookingService
     {
         $event = Event::findOrFail($data['event_id']);
 
+        if ($this->isPastEvent($event)) {
+            throw new BookingException('Cannot book past events', 400);
+        }
+
         if ($this->isEventFull($event)) {
             throw new BookingException('Event is fully booked', 400);
         }
@@ -26,6 +30,11 @@ class BookingService
     private function isEventFull(Event $event): bool
     {
         return $event->bookings()->count() >= $event->capacity;
+    }
+
+    private function isPastEvent(Event $event): bool
+    {
+        return $event->start_date->isPast();
     }
 
     private function hasExistingBooking(int $eventId, int $attendeeId): bool
