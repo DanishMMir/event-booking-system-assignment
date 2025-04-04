@@ -254,6 +254,88 @@
                 }
             }
         },
+        "/bookings": {
+            "get": {
+                "tags": [
+                    "Bookings"
+                ],
+                "summary": "List all bookings",
+                "operationId": "afb8b225fc78962125d01a6c8e8af2ae",
+                "parameters": [
+                    {
+                        "name": "event_id",
+                        "in": "query",
+                        "description": "Filter by event ID",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "attendee_id",
+                        "in": "query",
+                        "description": "Filter by attendee ID",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of bookings"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Bookings"
+                ],
+                "summary": "Create a new booking",
+                "operationId": "2911657b7059f988a4bc398a1d21e68f",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "event_id",
+                                    "attendee_id",
+                                    "status"
+                                ],
+                                "properties": {
+                                    "event_id": {
+                                        "type": "integer"
+                                    },
+                                    "attendee_id": {
+                                        "type": "integer"
+                                    },
+                                    "status": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Booking created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Booking"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                }
+            }
+        },
         "/events": {
             "get": {
                 "tags": [
@@ -579,6 +661,36 @@
                 },
                 "type": "object"
             },
+            "Booking": {
+                "required": [
+                    "event_id",
+                    "attendee_id",
+                    "status"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "event_id": {
+                        "type": "integer"
+                    },
+                    "attendee_id": {
+                        "type": "integer"
+                    },
+                    "status": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            },
             "Event": {
                 "required": [
                     "name",
@@ -629,6 +741,10 @@
         {
             "name": "Attendees",
             "description": "API Endpoints for Attendees"
+        },
+        {
+            "name": "Bookings",
+            "description": "API Endpoints for Bookings"
         },
         {
             "name": "Events",
