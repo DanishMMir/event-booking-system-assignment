@@ -51,6 +51,7 @@ The assignment was pretty straight forward. It was easy to implement and work on
 - Import the postman collection `Event Booking System Assignment.postman_collection.json` provided in this repo  in your postman.
 - Import the postman environment `Event Booking System Environment.postman_environment.json` provided in this repo in your postman.
 - You should now be able to hit the endpoints using postman.
+- if any issues faced in setup, reach-out at mirdanishmajeed@gmail.com. I will be happy to help.
 
 ## What has been done
 - Created database schemas necessary for the functionality.
