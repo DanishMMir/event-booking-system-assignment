@@ -5,7 +5,7 @@ The assignment was pretty straight forward. It was easy to implement and work on
 - No frontend UI created.
 - Functionality can be accessed as API endpoints.
 - All core functions defined in assignment have been completed.
-- No auth has been implemented (as advised in assignment). However can be easily implemented using Sanctum (Details further down).
+- No auth has been implemented (as advised in assignment). However, can be easily implemented using Sanctum (Details further down).
 - Only `list` and `store` functions defined for bookings (any other functions were not mentioned in the assignment).
 - Events and Attendees have all functions implemented.
 - Developed as dockerized containers.
@@ -36,8 +36,6 @@ The assignment was pretty straight forward. It was easy to implement and work on
 - install dependencies by running `docker-compose run  --rm composer install`
 - It will install dependencies, create app key and copy .env.example into .env
 - connect your favourite MySQL tool (MySQL workbench) to the `mysql` docker container using below-mentioned credentials.
-- create a database named `laravel_project` inside the `mysql` conatiner by connecting to it by following the above step.
-- Add your DB creds to .env
 ```
     DB_CONNECTION=mysql
     DB_HOST=mysql
@@ -46,18 +44,20 @@ The assignment was pretty straight forward. It was easy to implement and work on
     DB_USERNAME=homestead
     DB_PASSWORD=secret
 ```
-- run migrations `php artisan migrate`
-- The app should be live on `localhost:8080` now.
-- Import the postman collection and environment provided in your postman.
+- create a database named `laravel_project` (If not already created during docker container setup) inside the `mysql` container by connecting to it by following the above step.
+- run migrations `docker-compose run  --rm artisan migrate`
+- The app should be live on `localhost:8080` now. It should show the Laravel welcome page.
+- To open the documentation open http://localhost:8080/api/documentation
+- Import the postman collection `Event Booking System Assignment.postman_collection.json` provided in this repo  in your postman.
+- Import the postman environment `Event Booking System Environment.postman_environment.json` provided in this repo in your postman.
 - You should now be able to hit the endpoints using postman.
-- Check Swagger documentation for the app on route http://localhost:8080/api/documentation
 
 ## What has been done
 - Created database schemas necessary for the functionality.
 - Implemented domain logic as per assignment to make the system work.
 - Added proper API endpoints to be used for interacting with the system.
-- Added test cases to cover functionality ad improve reliability.
-- Added Postman Collection for easier access.
+- Added test cases to cover functionality and improve reliability.
+- Added postman Collection for easier access.
 
 ## Main Functionality
 - Bring up the docker containers `docker-compose up -d`
@@ -67,11 +67,28 @@ The assignment was pretty straight forward. It was easy to implement and work on
 - This will enable you to test the endpoints of the application and tinker with different functionalities.
 - You can also execute test suite by running `docker-compose run  --rm artisan test` command inside the project root.
 
-## Improvements that can be made
-- Auth can be implemented
-- many more
+## How can Authentication and Authorization be implemented.
+- This can be implemented by using Laravel Sanctum package in combination with Laravel Fortify package.
+- Laravel Sanctum will handle the authentication for API as well as any session and cookie based frontend.
+- Laravel Fortify will handle user authentication and authorization by providing implementations for registration, login, password_resets, 2FAs, etc.
+- Laravel Gates and Policies can be used to implement different roles and permissions for users in the system.
+- The routes that need to be behind authentication need to be wrapped inside the `auth` and `sanctum` middlewares.
+- As can be seen in the `routes/api.php` file, the event routes apart from list and show are wrapped inside `auth` and `sanctum` middleware.
+- If this is uncommented, then these event routes will only be accessible with a valid authorization token provided in request.
+- All other routes will continue to work without authorization token.
 
-## What has not been done / was unclear
+## Improvements that can be made
+- Auth can be implemented.
+- More elaborate and complex database schema can be defined.
+- A frontend UI can be created.
+- The remaining bookings endpoints can be created.
+- coding standards can be improved by adding tools like phpstan, psalm, etc.
+- A local build pipeline can be created to check if the new code follows the defined coding standards.
+- This build can be extended to GitHub Actions to run more thorough builds.
+- Proper role based authorization can be implemented.
+- many more.
+
+## What has not been done
 - Auth Implementation has not been done as was mentioned in the assignment.
-- Schemas have been kept simple on purpose due to time constriant.
+- Schemas have been kept simple on purpose due to time constraint.
 - Not all endpoints have been implemented for bookings. Only `list` and `store` endpoints implemented.
