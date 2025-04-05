@@ -92,3 +92,7 @@ The assignment was pretty straight forward. It was easy to implement and work on
 - Auth Implementation has not been done as was mentioned in the assignment.
 - Schemas have been kept simple on purpose due to time constraint.
 - Not all endpoints have been implemented for bookings. Only `list` and `store` endpoints implemented.
+
+## The Second part of Assignment
+- However, I am very much savvy with a lot of AWS services like EC2, VPC, Cloudfront, Beanstalk, S3, SES, SNS, ACM, Secrets Manager, Security groups, Load balancers, RDS, IAM, etc. and have used them actively in professional carrier, But I have not used serverless services like EventBridge, Lambda, etc.
+- So I will not be able to create a flow for this serverless notification architecture.
