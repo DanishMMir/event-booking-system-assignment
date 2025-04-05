@@ -34,8 +34,7 @@ The assignment was pretty straight forward. It was easy to implement and work on
 - `cd` into root of the project `cd  event-booking-system-assignment/`
 - pull and start docker containers using `docker-compose up -d`
 - install dependencies by running `docker-compose run  --rm composer install`
-- copy example env to env `docker-compose run  --rm server cp .env.example .env`
-- generate app key `docker-compose run  --rm php artisan key:generate`
+- It will install dependencies, create app key and copy .env.example into .env
 - connect your favourite MySQL tool (MySQL workbench) to the `mysql` docker container using below-mentioned credentials.
 - create a database named `laravel_project` inside the `mysql` conatiner by connecting to it by following the above step.
 - Add your DB creds to .env
