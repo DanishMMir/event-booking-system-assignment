@@ -30,8 +30,8 @@ The assignment was pretty straight forward. It was easy to implement and work on
 - `laravel/pint` for managing coding styles.
 
 ## How to use
-- pull main branch from GitHub (preferably inside WSL2)
-- `cd` into root of the project
+- Clone main branch from GitHub (preferably inside WSL2) `git clone https://github.com/DanishMMir/event-booking-system-assignment.git`
+- `cd` into root of the project `cd  event-booking-system-assignment/`
 - pull and start docker containers using `docker-compose up -d`
 - install dependencies by running `docker-compose run  --rm composer install`
 - copy example env to env `docker-compose run  --rm server cp .env.example .env`
